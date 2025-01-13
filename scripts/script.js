@@ -7,7 +7,9 @@ const scoreEl = document.querySelector('.score span');
 const timeLeftEl = document.querySelector('.timer span');
 const smack = new Audio('assets/smash.mp3');
 const gameButton = document.querySelector('.leave');
-const soundButton = document.querySelector('.sound-effects'); // New button for sound effects
+const soundButton = document.querySelector('.sound-effects');
+
+// Initialize game state variables
 let score = 0;
 let timeLeft = 30;
 let gameTimer = null;
@@ -22,16 +24,16 @@ function startTimer() {
         } else {
             clearInterval(gameTimer);
             alert('Game over! Your score is ' + score + '. Good game!! 🎉');
-            // Optionally, stop the game and hide moles
             holes.forEach(hole => hole.innerHTML = '');
             bgMusic.pause(); // Stop background music
-            gameButton.textContent = 'Start Game'; // Reset button text
+            gameButton.textContent = 'Start Game';
             gameRunning = false; // Update game status
             resetGame(); // Reset the game state
         }
     }, 1000);
 }
 
+// Run game ( show & hide zombies )
 function run() {
     const i = Math.floor(Math.random() * holes.length);
     const hole = holes[i];
@@ -40,7 +42,7 @@ function run() {
     const img = document.createElement('img');
     img.classList.add('mole');
     img.src = 'assets/zombie.svg';
-    img.setAttribute('data-clicked', 'false'); // Add a data attribute to track clicks
+    img.setAttribute('data-clicked', 'false');
 
     img.addEventListener('click', () => {
         if (img.getAttribute('data-clicked') === 'false') { // Check if the mole has been clicked
@@ -89,7 +91,8 @@ function endGame() {
     bgMusic.pause();
     gameButton.textContent = 'Start Game';
     gameRunning = false;
-    resetGame(); // Reset the game state
+    alert('Game over! Your score is ' + score + '. Good game!! 🎉');
+    resetGame();
 }
 
 // Reset the game state
@@ -100,7 +103,7 @@ function resetGame() {
     timeLeftEl.textContent = timeLeft;
 }
 
-// Handle game button click
+// Handle game button click ( start & end the game )
 gameButton.addEventListener('click', () => {
     if (gameRunning) {
         endGame();
@@ -114,9 +117,9 @@ soundButton.addEventListener('click', () => {
     soundEnabled = !soundEnabled;
     soundButton.textContent = soundEnabled ? 'Disable Sound Effects' : 'Enable Sound Effects';
     if (soundEnabled && gameRunning) {
-        bgMusic.play(); // Play background music if the game is running and sound is enabled
+        bgMusic.play();
     } else {
-        bgMusic.pause(); // Pause background music if sound is disabled
+        bgMusic.pause();
     }
 });
 

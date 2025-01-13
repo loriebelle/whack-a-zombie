@@ -97,11 +97,11 @@ span {
 
 @keyframes rise {
     0% {
-        transform: translateX(-50%) translateY(100%); /* Start below the mud */
+        transform: translateX(-50%) translateY(100%);
     }
 
     100% {
-        transform: translateX(-50%) translateY(30%); /* End at the top of the mud */
+        transform: translateX(-50%) translateY(30%);
     }
 }
 
